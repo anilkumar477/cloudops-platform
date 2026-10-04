@@ -38,8 +38,8 @@ pipeline {
             steps{
                 sh '''
                 docker rm -f cloudops-container || true
-                
-                docker run -d --name cloudops-container --network cloudops-network -p 5000:5000 cloudops-app:$(BUILD_NUMBER)
+
+                docker run -d --name cloudops-container --network cloudops-network -p 5000:5000 cloudops-app:${BUILD_NUMBER}
                 '''
             }
         }
