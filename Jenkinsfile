@@ -28,7 +28,9 @@ pipeline {
         }
         stage('Build image') {
             steps{
+                sh '''
                 docker build -t Cloudops-app:${BUILD_NUMBER} .
+                '''
             }
         }
 
