@@ -1,0 +1,6 @@
+---
+docker_image: "cloudops-app:15"
+docker_network: "cloudops-network"
+docker_container: "cloudops-container"
+host_port: 5000
+container_port: 5000

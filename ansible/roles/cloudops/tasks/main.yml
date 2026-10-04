@@ -1,0 +1,12 @@
+---
+- name: Create Cloudops application directoty
+  ansible.builtin.file:
+    path: /tmp/cloudops
+    state: directory
+    mode: "0755"
+
+- name: Create CloudOps environment file
+  ansible.builtin.template:
+    src: environment.j2
+    dest: /tmp/cloudops/environment.txt
+    mode: "0644"

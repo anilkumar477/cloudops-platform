@@ -1,0 +1,5 @@
+---
+cloudops_app_name: "CloudOps Platform"
+cloudops_environment: "production"
+cloudops_version: "1.0.0"
+cloudops_app_port: 5000

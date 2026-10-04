@@ -1,0 +1,2 @@
+[cloudops]
+localhost ansible_connection=local

@@ -1,0 +1,11 @@
+---
+- name: Deploy cloudops application container
+  community.docker.docker_container:
+    name: "{{ docker_container }}"
+    image: "{{ docker_image }}"
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      -  "{{ host_port }}:{{ container_port }}"
+    networks:
+      - name: "{{ docker_network }}"

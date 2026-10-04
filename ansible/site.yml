@@ -1,0 +1,8 @@
+---
+- name: Configure cloudops environment
+  hosts: cloudops
+  gather_facts: true
+
+  roles:
+    - cloudops
+    - docker_deploy
