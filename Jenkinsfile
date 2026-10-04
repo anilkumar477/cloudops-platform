@@ -29,7 +29,7 @@ pipeline {
         stage('Build image') {
             steps{
                 sh '''
-                docker build -t Cloudops-app:${BUILD_NUMBER} .
+                docker build -t cloudops-app:${BUILD_NUMBER} .
                 '''
             }
         }
