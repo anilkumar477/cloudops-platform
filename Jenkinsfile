@@ -34,6 +34,24 @@ pipeline {
             }
         }
 
+        stage('Deploy'){
+            steps{
+                sh '''
+                docker rm -f cloudops-container ||
+                docker run -d --name cloudops-container -p 5000:5000 cloudops-app:$(BUILD_NUMBER)
+                '''
+            }
+        }
+        stage('Verify deployment'){
+            steps{
+                '''
+                sh 
+                sleep 3
+                curl -f http://cloudops-container:5000/health
+                '''
+            }
+        }
+
     }
 
     post {
