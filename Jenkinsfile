@@ -44,10 +44,9 @@ pipeline {
         }
         stage('Verify deployment'){
             steps{
-                '''
-                sh 
-                sleep 3
-                curl -f http://cloudops-container:5000/health
+                sh '''
+                   sleep 3
+                   curl -f http://cloudops-container:5000/health
                 '''
             }
         }
