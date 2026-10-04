@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    options {
+        skipDefaultCheckout(true)
+    }
     stages {
         stage('Checkout scm') {
             steps {
@@ -21,6 +24,11 @@ pipeline {
                 sh '''
                     .jenkins-venv/bin/python -m pytest -v
                 '''
+            }
+        }
+        stage('Build image') {
+            steps{
+                docker build -t Cloudops-app:${BUILD_NUMBER} .
             }
         }
 
