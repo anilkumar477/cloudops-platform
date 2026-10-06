@@ -6,6 +6,7 @@
     state: started
     restart_policy: unless-stopped
     image_name_mismatch: recreate
+    pull: always
     ports:
       -  "{{ host_port }}:{{ container_port }}"
     networks:
