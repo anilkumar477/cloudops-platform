@@ -87,7 +87,7 @@ pipeline {
             dir('ansible') {
                 sh '''
                    ansible-playbook site.yml \
-                      -e "docker_image=cloudops-app:${BUILD_NUMBER}"
+                      -e "docker_image=anilnodagala/cloudops-app:${BUILD_NUMBER}"
                 '''
             }
             }
