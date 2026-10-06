@@ -34,6 +34,32 @@ pipeline {
             }
         }
 
+        stage('Push Image') {
+    steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: 'dockerhub-credentials',
+                usernameVariable: 'DOCKERHUB_USER',
+                passwordVariable: 'DOCKERHUB_TOKEN'
+            )
+        ]) {
+            sh '''
+                echo "$DOCKERHUB_TOKEN" | docker login \
+                    -u "$DOCKERHUB_USER" \
+                    --password-stdin
+
+                docker tag cloudops-app:${BUILD_NUMBER} \
+                    ${DOCKERHUB_USER}/cloudops-app:${BUILD_NUMBER}
+
+                docker push \
+                    ${DOCKERHUB_USER}/cloudops-app:${BUILD_NUMBER}
+
+                docker logout
+            '''
+        }
+    }
+}
+
         stage('Prepare Deployment') {
     steps {
         script {
