@@ -60,30 +60,9 @@ pipeline {
     }
 }
 
-        stage('Prepare Deployment') {
-    steps {
-        script {
-            env.PREVIOUS_IMAGE = sh(
-                script: "docker inspect cloudops-container --format='{{.Config.Image}}' 2>/dev/null || true",
-                returnStdout: true
-            ).trim()
-
-            if (env.PREVIOUS_IMAGE) {
-                echo "Current deployed image: ${env.PREVIOUS_IMAGE}"
-            } else {
-                echo "No previous deployment found"
-            }
-        }
-    }
-}
 
         stage('Deploy'){
             steps{
-/*               sh '''
-               docker rm -f cloudops-container || true
-
-             docker run -d --name cloudops-container --network cloudops-network -p 5000:5000 cloudops-app:${BUILD_NUMBER}
-            ''' */
             dir('ansible') {
                 sh '''
                    ansible-playbook site.yml \
