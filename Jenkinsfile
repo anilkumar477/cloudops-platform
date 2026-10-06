@@ -1,5 +1,9 @@
 pipeline {
     agent any
+
+    environment {
+        DOCKER_IMAGE = 'anilnodagala/cloudops-app'
+    }
     options {
         skipDefaultCheckout(true)
     }
@@ -66,7 +70,7 @@ pipeline {
             dir('ansible') {
                 sh '''
                    ansible-playbook site.yml \
-                      -e "docker_image=anilnodagala/cloudops-app:${BUILD_NUMBER}"
+                      -e "docker_image=${DOCKER_IMAGE}:${BUILD_NUMBER}"
                 '''
             }
             }
