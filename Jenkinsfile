@@ -33,7 +33,7 @@ pipeline {
         stage('Build image') {
             steps{
                 sh '''
-                docker build -t cloudops-app:${BUILD_NUMBER} .
+                docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} .
                 '''
             }
         }
@@ -52,11 +52,9 @@ pipeline {
                     -u "$DOCKERHUB_USER" \
                     --password-stdin
 
-                docker tag cloudops-app:${BUILD_NUMBER} \
-                    ${DOCKERHUB_USER}/cloudops-app:${BUILD_NUMBER}
 
                 docker push \
-                    ${DOCKERHUB_USER}/cloudops-app:${BUILD_NUMBER}
+                    ${DOCKER_IMAGE}:${BUILD_NUMBER}
 
                 docker logout
             '''
