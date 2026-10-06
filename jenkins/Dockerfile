@@ -19,4 +19,18 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends docker-ce-cli && \
     rm -rf /var/lib/apt/lists/*
 
+
+# Install Ansible in an isolated virtual environment
+RUN python3 -m venv /opt/ansible-venv && \
+    /opt/ansible-venv/bin/pip install --no-cache-dir --upgrade pip && \
+    /opt/ansible-venv/bin/pip install --no-cache-dir \
+    ansible-core==2.16.14 \
+    requests \
+    docker && \
+    /opt/ansible-venv/bin/ansible-galaxy collection install \
+        community.docker:3.13.3 \
+        -p /usr/share/ansible/collections
+
+ENV PATH="/opt/ansible-venv/bin:${PATH}"
+
 USER jenkins
