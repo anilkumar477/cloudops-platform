@@ -5,6 +5,7 @@
     image: "{{ docker_image }}"
     state: started
     restart_policy: unless-stopped
+    image_name_mismatch: recreate
     ports:
       -  "{{ host_port }}:{{ container_port }}"
     networks:
