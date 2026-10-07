@@ -104,7 +104,7 @@ pipeline {
             echo 'CloudOps CI pipeline passed'
         }
         failure {
-            echo 'Cloudops CI pipeline failed'
+            echo 'Cloudops CI pipeline failed1'
         }
         always{
             sh 'rm -rf .jenkins-venv'
