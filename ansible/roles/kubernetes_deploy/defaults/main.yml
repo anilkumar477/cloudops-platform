@@ -1,0 +1,5 @@
+---
+docker_image: "anilnodagala/cloudops-app:26"
+k8s_namespace: "default"
+k8s_deployment: "cloudops-app"
+k8s_container: "cloudops-app"

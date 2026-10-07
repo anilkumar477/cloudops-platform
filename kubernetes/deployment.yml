@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cloudops-app
+  name: cloudops-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cloudops-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: cloudops-app
+    spec:
+      containers:
+      - image: anilnodagala/cloudops-app:26
+        name: cloudops-app
+        ports:
+        - containerPort: 5000
+        resources: {}
+status: {}

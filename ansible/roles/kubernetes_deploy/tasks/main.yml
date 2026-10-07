@@ -1,0 +1,13 @@
+- name: Update CloudOps Kubernetes image
+  kubernetes.core.k8s:
+    state: patched
+    kind: Deployment
+    name: "{{ k8s_deployment }}"
+    namespace: "{{ k8s_namespace }}"
+    definition:
+      spec:
+        template:
+          spec:
+            containers:
+              - name: "{{ k8s_container }}"
+                image: "{{ docker_image }}"

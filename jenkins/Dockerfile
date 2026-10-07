@@ -24,13 +24,17 @@ RUN apt-get update && \
 RUN python3 -m venv /opt/ansible-venv && \
     /opt/ansible-venv/bin/pip install --no-cache-dir --upgrade pip && \
     /opt/ansible-venv/bin/pip install --no-cache-dir \
-    ansible-core==2.16.14 \
-    requests \
-    docker && \
+        ansible-core==2.16.14 \
+        requests \
+        docker \
+        kubernetes && \
     /opt/ansible-venv/bin/ansible-galaxy collection install \
         community.docker:3.13.3 \
+        kubernetes.core \
         -p /usr/share/ansible/collections
 
+RUN curl -LO "https://dl.k8s.io/release/v1.34.0/bin/linux/amd64/kubectl" && \
+    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && \
+    rm kubectl
 ENV PATH="/opt/ansible-venv/bin:${PATH}"
-
 USER jenkins

@@ -63,12 +63,15 @@ pipeline {
 }
 
 
-        stage('Deploy'){
+        stage('Deploy to kubernetes'){
             steps{
             dir('ansible') {
                 sh '''
-                   ansible-playbook site.yml \
-                      -e "docker_image=${DOCKER_IMAGE}:${BUILD_NUMBER}"
+                     export KUBECONFIG=/var/jenkins_home/kubeconfig
+
+                ansible-playbook site.yml \
+                  -e "docker_image=${DOCKER_IMAGE}:${BUILD_NUMBER}" \
+                  -e "ansible_python_interpreter=/opt/ansible-venv/bin/python"
                 '''
             }
             }
@@ -76,8 +79,20 @@ pipeline {
         stage('Verify deployment'){
             steps{
                 sh '''
-                   sleep 3
-                   curl -f http://cloudops-container:5000/health
+                     export KUBECONFIG=/var/jenkins_home/kubeconfig
+
+            kubectl rollout status \
+              deployment/cloudops-app \
+              --timeout=120s
+
+            kubectl get pods \
+              -l app=cloudops-app
+
+            echo "Deployed image:"
+            kubectl get deployment cloudops-app \
+              -o=jsonpath='{.spec.template.spec.containers[0].image}'
+
+            echo
                 '''
             }
         }
