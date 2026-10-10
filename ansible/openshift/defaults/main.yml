@@ -1,0 +1,6 @@
+---
+openshift_namespace: crt-2832686-dev
+openshift_deployment: cloudops-app
+openshift_container: cloudops-app
+openshift_api_url: "https://api.rm3.7wse.p1.openshiftapps.com:6443"
+docker_image: "anilnodagala/cloudops-app:openshift-v1"

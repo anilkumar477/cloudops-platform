@@ -1,0 +1,19 @@
+---
+- name: Update CloudOps image on OpenShift
+  kubernetes.core.k8s:
+    state: patched
+    api_version: apps/v1
+    kind: Deployment
+    name: "{{ openshift_deployment }}"
+    namespace: "{{ openshift_namespace }}"
+    host: "{{ openshift_api_url }}"
+    api_key: "{{ lookup('env', 'OPENSHIFT_TOKEN') }}"
+    validate_certs: true
+    definition:
+      spec:
+        template:
+          spec:
+            containers:
+              - name: "{{ openshift_container }}"
+                image: "{{ docker_image }}"
+  no_log: true
