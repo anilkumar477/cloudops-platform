@@ -1,0 +1,7 @@
+---
+- name: Deploy CLoudops to openshift
+  hosts: cloudops
+  gather_facts: false
+
+  roles:
+    - openshift
